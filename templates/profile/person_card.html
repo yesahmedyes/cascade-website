@@ -1,0 +1,40 @@
+<style>
+    .follow-profile-pic {
+        width: 75px;
+    }
+    .follow-profile-text {
+        position: relative;
+        top: 3.5px;
+        text-decoration: none !important;
+    }
+    .follow-profile-text h4 {
+        color: #333333;
+        font-weight: 400;
+    }
+    .follow-profile-text h6 {
+        color: #999999;
+        font-weight: 400;
+    }
+</style>
+
+<div class="mb-3 mx-5">
+    {% for each in people %}
+        {% if type == 'followers' %}
+            <div class="row each-card mb-4">
+                <a href="{% url 'user:profile' each.follower.user_name %}" class="mx-3"><img class="follow-profile-pic image-thumbnail rounded-circle" src="{{ each.follower.image.url }}" alt="profile-pic"></a>
+                <a href="{% url 'user:profile' each.follower.user_name %}" class="follow-profile-text">
+                    <h4 class="my-1">{{ each.follower.first_name }} {{ each.follower.last_name }}</h4>
+                    <h6 class="my-1">@{{ each.follower.user_name }}</h6>
+                </a>
+            </div>
+        {% else %}
+            <div class="row each-card mb-4">
+                <a href="{% url 'user:profile' each.following.user_name %}" class="mx-3"><img class="follow-profile-pic image-thumbnail rounded-circle" src="{{ each.following.image.url }}" alt="profile-pic"></a>
+                <a href="{% url 'user:profile' each.following.user_name %}" class="follow-profile-text">
+                    <h4 class="my-1">{{ each.following.first_name }} {{ each.following.last_name }}</h4>
+                    <h6 class="my-1">@{{ each.following.user_name }}</h6>
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

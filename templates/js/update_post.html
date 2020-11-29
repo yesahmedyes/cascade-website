@@ -1,0 +1,50 @@
+<script>
+
+    $(document).ready(function() {
+        $(".update-post-vote").submit(function(event) {
+            event.preventDefault();
+            let $submittedform = $(this);
+
+            let $val = $submittedform.find("input[name='update-value']").val();
+            let $user = $submittedform.find("input[name='update-user']").val();
+            let $post = $submittedform.find("input[name='update-post']").val();
+
+            let $btn = $submittedform.find("button");
+
+            if ($btn.hasClass("btn-up") && $btn.hasClass("up-active")) {
+                $btn.removeClass("up-active");
+            }
+            else if ($btn.hasClass("btn-up")) {
+                $(".btn-"+$post).removeClass("down-active");
+                $btn.addClass("up-active");
+            }
+
+            if ($btn.hasClass("btn-down") && $btn.hasClass("down-active")) {
+                $btn.removeClass("down-active");
+            }
+            else if ($btn.hasClass("btn-down")) {
+                $(".btn-"+$post).removeClass("up-active");
+                $btn.addClass("down-active");
+            }
+
+            update_post($user, $post, $val);
+        });
+    });
+
+    function update_post($user, $post, $val) {
+        $.ajax({
+            type: "POST",
+            url: "{% url 'posts:update_post' %}",
+            data: {
+                "user": $user,
+                "post": $post,
+                "value": $val,
+                "csrfmiddlewaretoken": "{{ csrf_token }}"
+            },
+            success: function(data) {
+                $("."+$user+"-"+$post+"-votes").text(data.votes);
+            }
+        });
+    }
+
+</script>

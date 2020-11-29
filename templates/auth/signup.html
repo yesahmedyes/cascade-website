@@ -1,0 +1,154 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="{% static 'css/stylesheet.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Cascade</title>
+    {#<link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" sizes="16x16">#}
+
+</head>
+<body>
+
+    <style>
+        .main {
+            background-color: #1E0626;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .background-image {
+            background-image: url("{% static 'img/signup.png' %}");
+            height: 100%;
+            {#width: 100%;#}
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .btn-back span {
+            color: #efefef;
+            font-size: 35px;
+        }
+        h3 {
+            color: #efefef;
+            letter-spacing: 0.4px;
+            font-weight: 400;
+        }
+        .signup-form {
+            background-color: #ffffff;
+            border: 1px solid #444444;
+            border-radius: 20px;
+        }
+        form input {
+            border: 1px solid #cccccc !important;
+            border-radius: 10px !important;
+            width: 315px !important;
+            height: 45px !important;
+        }
+        .signup-form input:focus {
+            outline: none !important;
+            border-color: rgba(0,0,0,0.6) !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+        }
+        .btn-back:focus {
+            outline: none !important;
+            border-color: rgba(0,0,0,0) !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+        }
+        .btn-signup {
+            background-color: #470A5A;
+            border-radius: 16px;
+            padding: 6px 35px 8px;
+        }
+        .already-member {
+            color: #555555;
+            font-size: 15px;
+        }
+        .already-member a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+        .already-member a:hover {
+            color: #205067;
+        }
+        .side-image, .side-image img {
+            height: 100% !important;
+        }
+        .btn-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .container-form {
+            position: relative;
+            top: 12%;
+        }
+        @media only screen and (max-width: 1200px) {
+            .container-form {
+                position: relative;
+                top: 6%;
+            }
+        }
+        .social-login button {
+            padding: 7px 36px;
+            border-radius: 13px;
+        }
+    </style>
+
+    <div class="main row mx-0">
+        <div class="side-image">
+            <img src="{% static 'img/signup.png' %}">
+            <div class="mx-0">
+                <a class="btn btn-back mt-3 ml-4" href="{% url 'trending:trending' %}"><span class="material-icons">keyboard_return</span></a>
+            </div>
+        </div>
+        <div class="mx-auto">
+                <div class="container container-form">
+                    <div class="row d-flex justify-content-center mb-3">
+                        <h3>Signup</h3>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="signup-form p-5 mt-2">
+{#                            <div class="d-flex justify-content-center mt-2 pt-1 mb-1 pb-1">#}
+{#                                <div class="row mb-2 social-login mx-0 px-0">#}
+{#                                    <button class="btn btn-primary mr-2">Connect F<span class="material-icons"></span></button>#}
+{#                                    <button class="btn btn-secondary ml-2">Connect G</button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <p class="text-center mb-3 pt-1 separator" style="padding-bottom: 5.5px;">or sign up using</p>#}
+                            <form method="POST" action="{% url 'auth:register' %}" class="mt-2">
+                                {% csrf_token %}
+                                <input class="form-control mb-2 mt-1" type="text" name="email" placeholder="Email address" required>
+                                <input class="form-control mb-2 mt-1" type="text" name="username" placeholder="Username" required>
+                                <input class="form-control mb-2 mt-1" type="password" name="password" placeholder="Password" autocomplete="off" required>
+                                <input class="form-control mb-2 mt-1" type="password" placeholder="Re Password" autocomplete="off" required>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-dark mt-3 mx-auto btn-signup">Sign Up</button>
+                                </div>
+                            </form>
+                            <p class="pl-3 pt-4 already-member mb-2">Already a memeber? <a href="#">Log In</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>
+</html>

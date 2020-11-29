@@ -1,0 +1,119 @@
+{% url 'home:home' as home_url %}
+{% url 'user:profile' as profile_url %}
+{% url 'trending:trending' as trending_url %}
+
+<style>
+        .navbar {
+            background: linear-gradient(to right, #010001, #09010E, #37085B, #CB1D58);
+            box-shadow: 0 3px 5px -1px rgba(0,0,0,0.25);
+        }
+        .navbar-brand {
+            font-family: 'Comfortaa';
+            letter-spacing: 1px;
+            font-weight: 400;
+            color: #ffffff !important;
+            margin-left: 140px;
+            font-size: 1.5rem;
+        }
+        .search-form {
+            margin-right: 30px;
+        }
+        .search-form input {
+            width: 300px;
+        }
+        input[type="search"]::-webkit-search-cancel-button {
+             display: none;
+        }
+        .sidebar {
+            z-index: 9999;
+            position: fixed;
+            top: 25px;
+            left: 40px;
+            background-image: linear-gradient(to bottom, #d72e55, #591191);
+            width: 65px;
+            border-radius: 10px;
+            text-align: center;
+            height: 80%;
+            box-shadow: 0 3px 5px -1px rgba(0,0,0,0.25);
+        }
+        .sidebar-list {
+            margin-top: 110px;
+            margin-bottom: 100px;
+            color: #ffffff;
+            list-style: none;
+        }
+        .sidebar-list li {
+            margin-bottom: 30px;
+        }
+        .sidebar-list li a {
+            color: #ffffff;
+            font-size: 25px;
+        }
+        .profile-image img {
+            width: 35px;
+            border: 2px solid rgba(255, 255, 255, 0.95);
+            margin-bottom: 5px;
+        }
+
+        .search-bar, .search-bar:focus {
+            width: 300px !important;
+            border-radius: 10px;
+            height: 37px;
+            box-shadow: none !important;
+        }
+        .search-bar::placeholder {
+            color: #888888 !important;
+            letter-spacing: 0.5px;
+            font-weight: 350 !important;
+        }
+        .search-icon {
+            color: #aaaaaa !important;
+            position: relative;
+            top: 10px;
+            right: 32px;
+            font-size: 20px;
+        }
+        .logout-button {
+            color: #dddddd;
+            position: relative;
+            top: 6px;
+            font-weight: 400;
+        }
+        .logout-button:hover {
+            color: #ffffff;
+            text-decoration: underline dotted;
+        }
+        .nav-container {
+            margin-right: 50px;
+        }
+    </style>
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark justify-content-between">
+        <a class="navbar-brand" href="{{ home_url }}">cascade</a>
+
+        <div class="row nav-container">
+            <form class="form my-lg-0 search-form">
+                <div class="row">
+                    <input class="form-control search-bar" type="search" name="seach" placeholder="Search" aria-label="Search" autocomplete="off">
+                    <label><span class="material-icons search-icon">search</span></label>
+                </div>
+            </form>
+            <a href="{% url 'auth:logout' %}" class="logout-button">Logout</a>
+        </div>
+
+    </nav>
+
+    <nav class="sidebar">
+        <ul class="sidebar-list px-2">
+            {% if not user %}
+                <li><a href="{{ profile_url }}" class="material-icons">face</a></li>
+            {% else %}
+                <li><a href="{{ profile_url }}" class="profile-image"><img class="image-thumbnail rounded-circle" src="{{ my_image.url }}"></a></li>
+            {% endif %}
+            <li><a href="{{ home_url }}" class="material-icons">house</a></li>
+            <li><a href="{{ trending_url }}" class="material-icons">whatshot</a></li>
+            <li><a href="#" class="material-icons">sms</a></li>
+            <li><a href="#" class="material-icons">notifications</a></li>
+            <li><a href="#" class="material-icons">settings</a></li>
+        </ul>
+    </nav>

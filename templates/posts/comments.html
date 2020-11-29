@@ -1,0 +1,29 @@
+<style>
+    .comment p {
+        font-size: 14px;
+    }
+    .comment span {
+        font-size: 14px;
+        color: #666666;
+        font-weight: 300;
+    }
+    .line {
+        position: relative;
+        right: -23px;
+        border-left: 2px solid #d3d3d3;
+        margin-top: 10px;
+        margin-bottom: 8px;
+    }
+</style>
+
+<div class="row mb-3">
+    <div class="line col-1 px-0"></div>
+    <div class="col-11 px-0">
+        {% for each in comments %}
+            <div class="comment">
+                <h6 class="mb-1">{{ each.user.first_name }} {{ each.user.last_name }} <span class="pl-1">@{{ each.user.user_name }}</span></h6>
+                <p>{{ each.comment }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>

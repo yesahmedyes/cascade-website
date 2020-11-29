@@ -1,0 +1,58 @@
+<div class="vote col-1">
+    <div class="row">
+        <form class="update-post-vote">
+            {% csrf_token %}
+            <input type="hidden" name="update-value" value="1">
+            <input type="hidden" name="update-user" value="{{ user }}">
+            <input type="hidden" name="update-post" value="{{ post.id }}">
+            {% if post.vote == "1" %}
+                <button class="btn btn-{{ post.id }} material-icons px-2 py-0 btn-up up-active" type="submit"><b>keyboard_arrow_up</b></button>
+            {% else %}
+                <button class="btn btn-{{ post.id }} material-icons px-2 py-0 btn-up" type="submit"><b>keyboard_arrow_up</b></button>
+            {% endif %}
+        </form>
+    </div>
+    <div class="row d-flex justify-content-center vote-value" style="margin-left: -2px; margin-right: 0px;">
+        <p class="mx-0 my-0 {{ user }}-{{ post.id }}-votes">{{ post.votes }}</p>
+    </div>
+    <div class="row">
+        <form class="update-post-vote">
+            {% csrf_token %}
+            <input type="hidden" name="update-value" value="-1">
+            <input type="hidden" name="update-user" value="{{ user }}">
+            <input type="hidden" name="update-post" value="{{ post.id }}">
+            {% if post.vote == "-1" %}
+                <button class="btn btn-{{ post.id }} btn-default material-icons px-2 py-0 btn-down down-active" type="submit"><b>keyboard_arrow_down</b></button>
+            {% else %}
+                <button class="btn btn-{{ post.id }} btn-default material-icons px-2 py-0 btn-down" type="submit"><b>keyboard_arrow_down</b></button>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+<div class="card col-11 px-0">
+    {% if post.content %}
+        <div class="card-body pb-0">
+            <p class="card-text">{{ post.content }}</p>
+        </div>
+    {% endif %}
+    {% if post.image %}
+        <div class="p-3">
+            <img class="card-img-top img-thumbnail pb-2" style="border-color: #e8e9eb;" src="{{ post.image }}" alt="image">
+        </div>
+    {% endif %}
+    <div class="row card-icons d-flex justify-content-start mx-3 mb-1">
+        <form class="fetch-comment">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{ user }}">
+            <input type="hidden" name="post" value="{{ post.id }}">
+            <button class="btn px-2" type="submit"><span class="material-icons" style="padding-right: 2px; bottom: -0.1px;">comment</span> <span class="text">Comments</span></button>
+        </form>
+        <button class="btn px-2" href="#"><span class="material-icons" style="top: -1.5px;">reply</span> <span class="text">Share</span></button>
+        <button class="btn px-2" href="#"><span class="material-icons">bookmark</span> <span class="text">Save</span></button>
+    </div>
+</div>
+
+<div class="comments mt-3 px-5 col-12 ml-4">
+    <div class="ml-1 comment-{{ post.id }} pt-2"></div>
+</div>

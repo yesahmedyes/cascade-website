@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cascade{% endblock %}
+
+{% block content %}
+
+    <style>
+        .btn:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        .profile-picture img {
+            width: 17%;
+        }
+        @media only screen and (max-width: 1440px) {
+            .profile-container {
+                position: relative;
+                left: 30px;
+            }
+        }
+        .name {
+            text-align: center;
+        }
+        .name h3 {
+            font-weight: 400;
+        }
+        .name h5 {
+            font-weight: 400;
+            color: #999999;
+        }
+        .tabs {
+            background-color: #F3F3F3;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .tabs a {
+            color: #444444;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+        }
+        .tabs li {
+            padding-bottom: 5px;
+            padding-top: 10px;
+        }
+        .tabs li.active {
+            border-bottom: 2px solid red !important;
+            font-weight: 500;
+        }
+        .tabs li:hover {
+            border-bottom: 2px solid darkred;
+        }
+        .tabs li.active a p:nth-child(1) {
+            color: darkred;
+        }
+        .btn-follow {
+            width: 135px;
+            border-radius: 13px;
+            border: 1.1px solid #E66300;
+        }
+        .btn-message, .already-following, .btn-follow:hover  {
+            background-color: #E66300;
+            color: #efefef;
+            width: 135px;
+            border-radius: 13px;
+            border: 1px solid #E66300;
+        }
+        .btn-message:hover, .already-following:hover {
+            background-color: #DA4200;
+            color: #efefef;
+        }
+        .btn-follow:focus {
+            transition: color 1s, background-color 1s;
+            color: #333333;
+            background-color: #ffffff;
+        }
+        .already-following:focus {
+            transition: color 1s, background-color 1s;
+            color: #ffffff;
+            background-color: #E66300;;
+        }
+    </style>
+
+    {% include 'navbar.html' %}
+
+    <div class="container profile-container mt-5">
+        <div class="header pt-5 pb-2">
+            <div class="d-flex justify-content-center profile-picture">
+                <img class="img-thumbnail rounded-circle" src="{{ image.url }}" alt="image">
+            </div>
+            <div class="name pt-2">
+                <h3 class="mb-1">{{ name }}</h3>
+                <h5>@{{ username }}</h5>
+            </div>
+        </div>
+
+        {% if not myprofile %}
+        <div class="container col-6 pt-2 pb-2 mb-2">
+            <div class="mt-2 follow-message d-flex justify-content-center">
+                <div class="row mx-0">
+                    {% if following %}
+                        <button class="btn btn-default mx-3 btn-follow already-following" onclick="check_follow('{{ username }}')">Following</button>
+                    {% else %}
+                        <button class="btn btn-default mx-3 btn-follow" onclick="check_follow('{{ username }}')">Follow</button>
+                    {% endif %}
+                    <button class="btn btn-default btn-message mx-3">Message</button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="container col-6 px-3 pt-1">
+            <div class="tabs mt-3 d-flex justify-content-center mx-1">
+                <ul class="list-inline my-0">
+                    <li class="tablinks posts list-inline-item px-4 mx-4"><a href="javascript:openContent('posts')">
+                        <p class="my-0" style="font-size: 12px; font-weight: 400;">Posts</p>
+                        <p class="my-0" style="font-size: 18px; font-weight: 500;">{{ post_count }}</p>
+                    </a></li>
+                    <li class="tablinks followers list-inline-item px-4 mx-4"><a href="javascript:openContent('followers')">
+                        <p class="my-0" style="font-size: 12px; font-weight: 400;">Followers</p>
+                        <p class="my-0 followers-count" style="font-size: 18px; font-weight: 500;">{{ follower_count }}</p>
+                    </a></li>
+                    <li class="tablinks following list-inline-item px-4 mx-4"><a href="javascript:openContent('following')">
+                        <p class="my-0" style="font-size: 12px; font-weight: 400;">Following</p>
+                        <p class="my-0" style="font-size: 18px; font-weight: 500;">{{ following_count }}</p>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+
+        <link rel="stylesheet" href="{% static 'css/post.css' %}">
+
+        <style>
+            .vote {
+                top: 30px;
+                left: -5px;
+            }
+            .each-post {
+                position: relative;
+                left: -22px;
+            }
+        </style>
+
+        <div class="container posts mt-4 pt-3 col-6">
+            {% for post in posts %}
+            <div class="each-post row d-flex justify-content-center mb-3">
+                {% include "posts/post.html" with post=post %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="container followers mt-4 pt-3 col-6 pb-5">
+
+        </div>
+
+        <div class="container following mt-4 pt-3 col-6 pb-4">
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        function check_follow(username) {
+            $btn = $(".btn-follow");
+            $count = $('.followers-count');
+            if ($btn.hasClass('already-following') === false) {
+                $btn.addClass('already-following');
+                $btn.text("Following");
+                $count.text(parseInt($count.text())+1);
+            }
+            else {
+                $btn.removeClass('already-following');
+                $btn.text("Follow");
+                $count.text(parseInt($count.text())-1);
+            }
+            $.ajax({
+                type: "POST",
+                url: "{% url 'user:follow' %}",
+                data: {
+                    "username": username,
+                    "csrfmiddlewaretoken": "{{ csrf_token }}"
+                },
+                success: function() {
+                    if ($("li.followers").hasClass("active")) {
+                        openContent("followers");
+                    }
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            openContent("posts");
+        });
+        function openContent(name) {
+            $("li.tablinks").removeClass("active");
+            $("div.posts").hide();
+            $("div.followers").hide();
+            $("div.following").hide();
+
+            $("li."+name).addClass("active");
+            $("div."+name).show();
+
+            if (name === 'followers') {
+                get_followers('followers');
+            }
+            else if (name === 'following') {
+                get_followers('following');
+            }
+            else if (name === 'posts') {
+
+            }
+        }
+        function get_followers(type) {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'user:followers' %}",
+                data: {
+                    "username": "{{ username }}",
+                    "type": type,
+                    "csrfmiddlewaretoken": "{{ csrf_token }}"
+                },
+                success: function(data) {
+                    if (type==='followers') {
+                        $("div.followers").html(data);
+                    }
+                    else {
+                        $("div.following").html(data);
+                    }
+                }
+            });
+        }
+    </script>
+
+    {% include 'js/update_post.html' %}
+
+    {% include 'js/fetch_comments.html' %}
+
+{% endblock %}

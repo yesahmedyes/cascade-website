@@ -1,0 +1,43 @@
+<script>
+
+{#    this function is used to fetch comments without reloading page #}
+
+    $(document).ready(function() {
+        $(".fetch-comment").submit(function(event) {
+            console.log("here");
+            event.preventDefault();
+            let $submittedform = $(this);
+
+            let $user = $submittedform.find("input[name='user']").val();
+            let $post = $submittedform.find("input[name='post']").val();
+            let $btn = $submittedform.find("button");
+            $btn.toggleClass("btn-active");
+
+            $cmt = $(".comment-"+$post);
+
+            if ($cmt.hasClass("fetched")) {
+                $cmt.toggle();
+            }
+            else {
+                fetch_comments($user, $post, $cmt);
+            }
+        });
+    });
+
+    function fetch_comments($user, $post, $cmt) {
+        $.ajax({
+            type: "POST",
+            url: "{% url 'posts:fetch_comments' %}",
+            data: {
+                "user": $user,
+                "post": $post,
+                "csrfmiddlewaretoken": "{{ csrf_token }}"
+            },
+            success: function(data) {
+                $cmt.html(data);
+                $cmt.addClass("fetched");
+            }
+        });
+    }
+
+</script>
