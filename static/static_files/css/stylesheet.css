@@ -1,0 +1,22 @@
+/* Comfortaa font with weights: 300, 400, 500, 600 */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+
+
+
+body {
+    background-color: #eeeeee;
+}
+
+.color-seagreen {
+    color: #4afcfe !important;
+}
+
+.background-blue-1 {
+    background-color: #22272f !important;
+}
+
+.background-red-1 {
+    background-color: #f06656 !important;
+}

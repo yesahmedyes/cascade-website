@@ -1,0 +1,59 @@
+.card-icons {
+    float: left;
+}
+
+.card-icons .material-icons {
+    position: relative;
+}
+
+.card-icons .btn {
+    color: #555555;
+}
+
+.card-icons .btn-active {
+    color: #1d7fdf;
+}
+
+.card-icons .text {
+    position: relative;
+    top: -8px;
+    font-size: 12px;
+    color: #555555;
+}
+
+.vote {
+    position: relative;
+    left: -5px;
+    top: 30px;
+}
+
+.vote button {
+    color: #555555;
+    font-size: 25px;
+}
+
+.vote button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.up-active {
+    color: #1e90ff !important;
+}
+
+.btn-up:hover {
+    color: #1d7fdf !important;
+}
+
+.down-active {
+    color: #ff0000 !important;
+}
+
+.btn-down:hover {
+    color: #e70202 !important;
+}
+
+.card button:focus {
+    outline: none;
+    box-shadow: none;
+}
