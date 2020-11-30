@@ -5,5 +5,7 @@ I built this website as part of my final project for the database course i took.
 The final result after integrating the three together is shown below.
 
 <figure class="video_container">
-  <iframe src="https://www.youtube.com/watch?v=0RMT8uEplbM" frameborder="0" allowfullscreen="true"> </iframe>
+  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
+    <source src="https://github.com/ahmed-dys99/cascade-website/blob/main/cascade.mp4" type="video/mp4">
+  </video>
 </figure>
