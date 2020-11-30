@@ -8,6 +8,6 @@ The final result after integrating the three together is shown below.
 
 <p align="center"><img src="https://github.com/ahmed-dys99/cascade-website/blob/main/demo/demo-1.gif" width="600"></p>
 
-<br><br>
+<br>
 
 <p align="center"><img src="https://github.com/ahmed-dys99/cascade-website/blob/main/demo/demo-2.gif" width="600"></p>
