@@ -4,7 +4,7 @@ I built this website as part of my final project for the database course i took.
 
 The final result after integrating the three together is shown below.
 
-<br><br>
+<br>
 
 <p align="center"><img src="https://github.com/ahmed-dys99/cascade-website/blob/main/demo/demo-1.gif" width="600"></p>
 
