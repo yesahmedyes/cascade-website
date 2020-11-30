@@ -14,4 +14,4 @@ The final result after integrating the three together is shown below.
 
 <br>
 
-> The website uses Django in the backend, with sqlite3 for the database. It uses Jquery, Ajax and Bootstrap for the frontend.
+> The website uses Django in the backend, qlite3 for the database, along with Jquery, Ajax and Bootstrap for the frontend.
