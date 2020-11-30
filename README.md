@@ -13,3 +13,5 @@ The final result after integrating the three together is shown below.
 <p align="center"><img src="https://github.com/ahmed-dys99/cascade-website/blob/main/demo/demo-2.gif" width="600"></p>
 
 <br>
+
+> The website uses Django in the backend, with sqlite3 for the database. It uses Jquery, Ajax and Bootstrap for the frontend.
